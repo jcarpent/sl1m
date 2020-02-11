@@ -8,7 +8,7 @@ from sl1m.problem_definition import *
 #### constraint specification ####  
 
 DEFAULT_NUM_VARS = 4
-SLACK_SCALE = 10.
+# SLACK_SCALE = 10.
 
 #extra variables when multiple surface: a0, variable for inequality, a1 slack for equality constraint, then a2 = |a1|
 #so vars are x, y, z, zcom, a0, a1
@@ -189,6 +189,7 @@ def FixedFootConstraintRelativeDistance(pb, phaseDataT, A, b, previousCol, start
         
     
 def SurfaceConstraint(phaseDataT, A, b, startCol, endCol, startRow):
+    SLACK_SCALE = phaseDataT["slack_scale"]
     sRow = startRow
     nSurfaces = len(phaseDataT["S"])
     idS = DEFAULT_NUM_VARS
@@ -216,6 +217,7 @@ def SlackPositivityConstraint(phaseDataT, A, b, startCol, endCol, startRow):
     return idRow
     
 def EqualityConstraint(phaseDataT, E, e, startCol, endCol, startRowEq):    
+    SLACK_SCALE = phaseDataT["slack_scale"]
     sRow = startRowEq
     nSurfaces = len(phaseDataT["S"])
     if nSurfaces == 1:
